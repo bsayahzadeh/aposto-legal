@@ -1,0 +1,8 @@
+Beide Schriften stehen unter der SIL Open Font License 1.1 (https://openfontlicense.org).
+Geladen über Google Fonts, Teilmenge „latin".
+
+dm-sans.woff2
+  DM Sans. Copyright 2014 The DM Sans Project Authors (https://github.com/googlefonts/dm-fonts)
+
+bricolage-grotesque.woff2
+  Bricolage Grotesque. Copyright 2022 The Bricolage Grotesque Project Authors (https://github.com/ateliertriay/bricolage)

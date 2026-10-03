@@ -1,20 +1,354 @@
 <!doctype html>
 <html lang="de">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>A POSTO – Rechtliche Hinweise</title>
-  <style>
-    :root { color-scheme: light; --ink:#27231f; --muted:#716960; --paper:#faf7f2; --line:#ded6cc; }
-    * { box-sizing:border-box; } body { margin:0; background:var(--paper); color:var(--ink); font:16px/1.65 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
-    main { max-width:760px; margin:0 auto; padding:64px 24px 80px; } h1,h2 { font-family: Georgia,serif; font-weight:500; line-height:1.15; } h1 { font-size:clamp(42px,8vw,72px); margin:0 0 16px; } h2 { font-size:30px; margin-top:56px; } p { max-width:68ch; } a { color:inherit; } nav { display:flex; gap:20px; flex-wrap:wrap; margin-top:36px; } nav a { text-decoration:none; border-bottom:1px solid var(--ink); } .intro { color:var(--muted); font-size:18px; } footer { border-top:1px solid var(--line); margin-top:64px; padding-top:24px; color:var(--muted); font-size:14px; }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A POSTO – Reservierungsapp für Restaurants</title>
+<meta name="description" content="Ein modernes Buchungsformular für Ihre Gäste, eine App für Ihr Team. Zum festen Preis, ohne Provision. 30 Tage kostenlos testen.">
+<link rel="icon" href="favicon.png">
+<link rel="preload" href="schriften/dm-sans.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="schriften/bricolage-grotesque.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+  /* Schriften liegen im Repo, damit beim Aufruf keine Daten an Google gehen. */
+  @font-face { font-family: 'DM Sans'; font-style: normal; font-weight: 400 700; font-display: swap; src: url(schriften/dm-sans.woff2) format('woff2'); }
+  @font-face { font-family: 'Bricolage Grotesque'; font-style: normal; font-weight: 600 800; font-display: swap; src: url(schriften/bricolage-grotesque.woff2) format('woff2'); }
+  /* Bewusst nur hell: Website und Flyer haben ein festes Erscheinungsbild. */
+  :root {
+    color-scheme: light;
+    --orange: #e2501f;
+    --orange-tief: #c23f12;
+    --orange-zart: #fde3d8;
+    --papier: #f7f4ef;
+    --weiss: #ffffff;
+    --tinte: #211c19;
+    --grau: #635b55;
+    --linie: #e7e0d7;
+    --rahmen: #1f1b19;
+    --sans: 'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --display: 'Bricolage Grotesque', 'DM Sans', system-ui, sans-serif;
+    --breite: 1120px;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: var(--papier); color: var(--tinte); font: 400 17px/1.6 var(--sans); }
+  img { max-width: 100%; height: auto; display: block; }
+  a { color: inherit; }
+  :focus-visible { outline: 3px solid var(--tinte); outline-offset: 3px; border-radius: 6px; }
+  .huelle { max-width: var(--breite); margin: 0 auto; padding-inline: 24px; }
+
+  /* Kopf und Hero: die eine laute Fläche, wie Seite 1 des Flyers */
+  .hero { background: var(--orange); color: var(--weiss); padding-block: 0 0; position: relative; }
+  .kopf { display: flex; align-items: center; gap: 24px; padding-block: 22px; }
+  .marke { font: 800 20px/1 var(--display); letter-spacing: 0.14em; text-decoration: none; }
+  .kopf nav { margin-left: auto; display: flex; align-items: center; gap: 22px; }
+  .kopf nav a { text-decoration: none; font-weight: 500; }
+  .kopf nav a.leise:hover { text-decoration: underline; text-underline-offset: 4px; }
+  .knopf { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 24px; border-radius: 999px; font: 700 16px/1 var(--sans); text-decoration: none; white-space: nowrap; }
+  .knopf-hell { background: var(--weiss); color: var(--orange-tief); }
+  .knopf-hell:hover { background: #fff3ee; }
+  .knopf-rand { border: 2px solid rgba(255,255,255,0.75); color: var(--weiss); }
+  .knopf-rand:hover { border-color: var(--weiss); background: rgba(255,255,255,0.08); }
+  .knopf-klein { min-height: 40px; padding: 0 18px; font-size: 15px; }
+
+  .hero-raster { display: grid; grid-template-columns: 1.05fr 1fr; gap: 40px; align-items: center; padding-block: 56px 0; }
+  .hero-text { padding-bottom: 96px; }
+  .hero-zeile { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 14px; letter-spacing: 0.16em; text-transform: uppercase; margin: 0 0 22px; }
+  .hero-zeile::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--weiss); }
+  h1 { font: 800 clamp(44px, 6.6vw, 78px)/0.98 var(--display); letter-spacing: -0.025em; margin: 0 0 26px; text-wrap: balance; }
+  .hero-lead { font-size: 20px; line-height: 1.5; font-weight: 500; max-width: 31em; margin: 0 0 32px; }
+  .hero-knoepfe { display: flex; flex-wrap: wrap; gap: 12px; }
+  .hero-fuss { margin: 22px 0 0; font-weight: 500; }
+
+  /* Zwei Telefone, die über die Kante des Heros ragen */
+  .telefone { position: relative; height: 560px; align-self: end; margin-bottom: -150px; }
+  .telefon { position: absolute; width: 270px; background: var(--rahmen); border-radius: 44px; padding: 10px; box-shadow: 0 30px 60px -20px rgba(60, 20, 5, 0.45); }
+  .telefon img { border-radius: 34px; aspect-ratio: 1242 / 2688; object-fit: cover; object-position: top; width: 100%; }
+  .telefon-hinten { left: 4%; top: 30px; transform: rotate(-7deg); }
+  .telefon-vorn { left: 44%; top: 80px; transform: rotate(5deg); }
+
+  /* Abschnitte */
+  main { padding-top: 120px; }
+  .abschnitt { padding-block: 72px; }
+  .raster { display: grid; grid-template-columns: 340px 1fr; gap: 72px; align-items: center; }
+  .raster-gedreht { grid-template-columns: 1fr 460px; margin-bottom: 40px; }
+  .raster-gedreht .bild { order: 2; }
+  .bild .telefon { position: relative; width: 100%; max-width: 300px; margin: 0 auto; }
+  .etikett { color: var(--orange-tief); font-weight: 700; font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase; margin: 0 0 12px; }
+  h2 { font: 800 clamp(32px, 4.2vw, 46px)/1.05 var(--display); letter-spacing: -0.02em; margin: 0 0 12px; text-wrap: balance; }
+  .unterzeile { color: var(--grau); font-size: 19px; margin: 0 0 28px; }
+  h3 { font: 600 21px/1.25 var(--display); margin: 32px 0 6px; }
+  .hinweis { color: var(--grau); margin: 0 0 12px; }
+  .liste { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; max-width: 36em; }
+  .liste li { position: relative; padding-left: 24px; color: var(--grau); }
+  .liste li::before { content: ""; position: absolute; left: 2px; top: 0.62em; width: 9px; height: 9px; border-radius: 50%; background: var(--orange); }
+  .liste b { color: var(--tinte); font-weight: 700; }
+
+  /* Team: Ausschnitt aus der Tagesliste statt eines dritten Telefons */
+  .ausschnitt { display: grid; gap: 14px; }
+  .ausschnitt figure { margin: 0; }
+  .ausschnitt img { border-radius: 22px; box-shadow: 0 24px 48px -24px rgba(58, 42, 31, 0.35); background: var(--weiss); }
+  .ausschnitt figcaption { color: var(--grau); font-size: 15px; padding-left: 4px; }
+  .team-spalten { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 8px; }
+  .team-spalten h3 { margin-top: 0; }
+  .team-spalten .liste { gap: 10px; }
+
+  /* Preis */
+  .preis-kopf { max-width: 40em; margin-bottom: 32px; }
+  .preise { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .preis { background: var(--weiss); border-radius: 24px; padding: 30px 32px 32px; display: grid; gap: 4px; align-content: start; }
+  .preis-zeile { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 34px; }
+  .preis-name { font-weight: 700; color: var(--grau); }
+  .sparen { background: var(--orange); color: var(--weiss); font-weight: 700; font-size: 14px; padding: 6px 14px; border-radius: 999px; }
+  .betrag { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .betrag strong { font: 800 clamp(56px, 7vw, 84px)/1 var(--display); letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+  .betrag span { color: var(--grau); font-size: 19px; }
+  .preis p { margin: 6px 0 0; }
+  .preis-fuss { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-top: 18px; }
+  .preis-fuss b { font-weight: 700; }
+  .preis-fuss span { color: var(--grau); font-size: 15px; }
+
+  /* Abschluss */
+  .abschluss { background: var(--orange); color: var(--weiss); border-radius: 32px; padding: 56px; display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: center; }
+  .abschluss h2 { color: var(--weiss); }
+  .abschluss p { font-size: 19px; font-weight: 500; margin: 0; max-width: 30em; }
+  .kontakt { display: grid; gap: 20px; justify-items: start; }
+  .schritte { list-style: none; counter-reset: schritt; margin: 0; padding: 0; display: grid; gap: 12px; }
+  .schritte li { counter-increment: schritt; display: grid; grid-template-columns: 34px 1fr; gap: 12px; align-items: start; font-weight: 500; line-height: 1.4; }
+  .schritte li::before { content: counter(schritt); width: 34px; height: 34px; border-radius: 50%; background: var(--weiss); color: var(--orange-tief); font: 800 16px/34px var(--display); text-align: center; }
+  .persoenlich { margin-top: 20px; background: var(--weiss); border-radius: 24px; padding: 32px 40px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px 40px; }
+  .persoenlich h3 { margin: 0 0 4px; }
+  .persoenlich p { margin: 0; color: var(--grau); max-width: 34em; }
+  .persoenlich-kontakt { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 20px; }
+  .adresse { font: 600 20px/1.3 var(--display); user-select: all; }
+  .knopf-orange { background: var(--orange); color: var(--weiss); }
+  .knopf-orange:hover { background: var(--orange-tief); }
+
+  .fuss { padding-block: 40px 56px; color: var(--grau); font-size: 15px; display: flex; flex-wrap: wrap; gap: 12px 28px; align-items: center; }
+  .fuss .marke { color: var(--tinte); font-size: 16px; }
+  .fuss nav { display: flex; gap: 22px; flex-wrap: wrap; }
+  .fuss nav a { text-decoration: none; }
+  .fuss nav a:hover { color: var(--tinte); text-decoration: underline; }
+  .fuss .jahr { margin-left: auto; }
+
+  @media (max-width: 900px) {
+    .hero-raster { grid-template-columns: 1fr; padding-top: 32px; }
+    .hero-text { padding-bottom: 0; }
+    .telefone { height: 470px; margin-bottom: -120px; max-width: 460px; width: 100%; margin-inline: auto; }
+    .telefon { width: 210px; }
+    .raster, .raster-gedreht { grid-template-columns: 1fr; gap: 40px; }
+    .raster-gedreht .bild { order: 0; }
+    .bild .telefon { max-width: 260px; }
+    .team-spalten { grid-template-columns: 1fr; gap: 8px; }
+    .team-spalten h3 { margin-top: 20px; }
+    .preise { grid-template-columns: 1fr; }
+    .abschluss { grid-template-columns: 1fr; padding: 36px 28px; }
+    .persoenlich { padding: 28px; }
+  }
+  @media (max-width: 520px) {
+    .huelle { padding-inline: 18px; }
+    .kopf nav a.leise { display: none; }
+    .telefone { height: 400px; }
+    .telefon { width: 172px; border-radius: 34px; padding: 8px; }
+    .telefon img { border-radius: 27px; }
+    .telefon-hinten { left: 0; }
+    .telefon-vorn { left: auto; right: 0; }
+    main { padding-top: 100px; }
+    .abschnitt { padding-block: 48px; }
+    .preis { padding: 24px; }
+    .fuss .jahr { margin-left: 0; }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .telefon-hinten, .telefon-vorn { animation: herein 700ms cubic-bezier(.2,.7,.2,1) both; }
+    .telefon-vorn { animation-delay: 120ms; }
+    @keyframes herein { from { translate: 0 40px; } to { translate: 0 0; } }
+  }
+</style>
 </head>
-<body><main>
-  <p>A POSTO</p>
-  <h1>Rechtliche Hinweise</h1>
-  <p class="intro">Informationen zur Verwaltungs-App für Restaurantreservierungen.</p>
-  <nav><a href="datenschutz.html">Datenschutz</a><a href="impressum.html">Impressum</a><a href="support.html">Support</a></nav>
-  <footer>© 2026 A POSTO</footer>
-</main></body>
+<body>
+
+<header class="hero">
+  <div class="huelle">
+    <div class="kopf">
+      <a class="marke" href="./">A POSTO</a>
+      <nav aria-label="Hauptnavigation">
+        <a class="leise" href="#preis">Preise</a>
+        <a class="knopf knopf-hell knopf-klein" href="#testen">Kostenlos testen</a>
+      </nav>
+    </div>
+    <div class="hero-raster">
+      <div class="hero-text">
+        <p class="hero-zeile">Reservierungsapp für Restaurants</p>
+        <h1>Reservierungen, die einfach laufen</h1>
+        <p class="hero-lead">Ihre Gäste reservieren per Telefon, über Instagram, Google oder Ihre Website. Mit A POSTO landet alles an einem Ort: ein modernes Buchungsformular für Ihre Gäste, eine App für Ihr Team.</p>
+        <div class="hero-knoepfe">
+          <a class="knopf knopf-hell" href="#testen">30 Tage kostenlos testen</a>
+          <a class="knopf knopf-rand" href="#preis">Preise ansehen</a>
+        </div>
+        <p class="hero-fuss">Zum festen Preis, ohne Provision.</p>
+      </div>
+      <div class="telefone" aria-hidden="true">
+        <div class="telefon telefon-hinten"><img src="bilder/kalender.jpg" width="560" height="1212" alt=""></div>
+        <div class="telefon telefon-vorn"><img src="bilder/tagesliste.jpg" width="560" height="1212" alt=""></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="abschnitt" id="gaeste">
+    <div class="huelle raster">
+      <div class="bild">
+        <div class="telefon"><img src="bilder/buchungsformular.jpg" width="560" height="1209" loading="lazy" alt="Das Buchungsformular auf dem Handy: Personen, Datum und Uhrzeit wählen"></div>
+      </div>
+      <div>
+        <p class="etikett">Für Ihre Gäste</p>
+        <h2>Das Buchungsformular</h2>
+        <p class="unterzeile">Läuft auf Ihrer Website, in Ihrer Instagram-Bio und bei Google.</p>
+        <ul class="liste">
+          <li><b>Online reservieren, rund um die Uhr:</b> direkt auf Ihrer Website, über Instagram oder Google</li>
+          <li><b>In wenigen Klicks gebucht:</b> modern, übersichtlich und für das Handy gemacht</li>
+          <li><b>Ohne Konto und ohne App-Download</b></li>
+          <li><b>Karte und Route</b> zu Ihrem Restaurant</li>
+          <li><b>Deutsch und Englisch</b></li>
+        </ul>
+        <h3>Nach der Buchung</h3>
+        <p class="hinweis">Das bieten längst nicht alle Reservierungssysteme.</p>
+        <ul class="liste">
+          <li><b>Selbst ändern und stornieren</b> per Link aus der Bestätigungsmail, ganz ohne Anruf</li>
+          <li><b>Bestätigung mit Kalendereintrag</b> und automatische Erinnerung vor dem Termin</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="abschnitt" id="team">
+    <div class="huelle">
+      <div class="raster raster-gedreht">
+        <div class="bild ausschnitt">
+          <figure>
+            <img src="bilder/no-show.jpg" width="900" height="235" loading="lazy" alt="Eintrag in der Tagesliste: 18:00 Uhr, Müller, 2 Personen, Hinweis: schon einmal nicht erschienen">
+            <figcaption>So sieht Ihr Team in der Tagesliste, wer schon einmal nicht erschienen ist.</figcaption>
+          </figure>
+        </div>
+        <div>
+          <p class="etikett">Für Ihr Team</p>
+          <h2>Die App auf dem iPhone</h2>
+          <p class="unterzeile">Alle Reservierungen an einem Ort, egal woher sie kommen.</p>
+        </div>
+      </div>
+      <div class="team-spalten">
+        <div>
+          <h3>Tagesliste und Kalender</h3>
+          <ul class="liste">
+            <li><b>Sofort Bescheid wissen:</b> Bei jeder neuen Reservierung klingelt die App</li>
+            <li><b>Wer kommt wann,</b> mit wie vielen Personen</li>
+            <li><b>Schnell eingetragen:</b> Reservierungen am Telefon und Gäste ohne Reservierung</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Tischplan</h3>
+          <ul class="liste">
+            <li><b>Ihr eigener Tischplan:</b> mehrere Bereiche wie Gastraum und Terrasse, jeder Tisch mit seiner Platzzahl</li>
+            <li><b>Tische zusammenstellen</b> für größere Gruppen</li>
+            <li><b>Sie sehen, wer wo sitzt</b> und welcher Tisch wann frei wird</li>
+            <li><b>Auf Wunsch vergibt A POSTO die Tische</b> automatisch</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Gäste und Team</h3>
+          <ul class="liste">
+            <li><b>Stammgäste erkennen:</b> Gästesuche mit früheren Besuchen und No-Shows</li>
+            <li><b>Für das ganze Team:</b> mehrere Geräte, Zugänge für Inhaber und Personal</li>
+            <li><b>Deutsch, Englisch und Italienisch</b></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="abschnitt" id="regeln">
+    <div class="huelle raster">
+      <div class="bild">
+        <div class="telefon"><img src="bilder/buchungsregeln.jpg" width="560" height="1212" loading="lazy" alt="Buchungsregeln in der App: Online-Buchung geöffnet, Buchungszeitraum, größte Gruppe, automatisch bestätigen"></div>
+      </div>
+      <div>
+        <p class="etikett">Sie bestimmen die Regeln</p>
+        <h2>Zeiten, Plätze, Freigaben</h2>
+        <p class="unterzeile">Einmal eingestellt, gilt es für jede Buchung über das Formular.</p>
+        <ul class="liste">
+          <li><b>Öffnungszeiten</b> mit eigenen Plätzen, Aufenthaltsdauer und Vorlaufzeit</li>
+          <li><b>Ausnahmetage:</b> Ruhetag, Feiertag oder geschlossene Gesellschaft</li>
+          <li><b>Automatisch bestätigen</b> oder selbst freigeben</li>
+          <li><b>Voll? Ein Tipp genügt:</b> Online-Buchung pausieren, Tische oder Bereiche sperren</li>
+          <li><b>Überbuchen,</b> wenn Sie es wollen</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="abschnitt" id="preis">
+    <div class="huelle">
+      <div class="preis-kopf">
+        <p class="etikett">Preis</p>
+        <h2>Ein fester Preis, alle Funktionen</h2>
+      </div>
+      <div class="preise">
+        <div class="preis">
+          <div class="preis-zeile"><span class="preis-name">Monatlich</span></div>
+          <div class="betrag"><strong>49 €</strong><span>im Monat</span></div>
+          <p>monatlich kündbar</p>
+        </div>
+        <div class="preis">
+          <div class="preis-zeile"><span class="preis-name">Jährlich</span><span class="sparen">Sie sparen 108 €</span></div>
+          <div class="betrag"><strong>480 €</strong><span>im Jahr</span></div>
+          <p>bei 12 Monaten Laufzeit</p>
+        </div>
+      </div>
+      <div class="preis-fuss">
+        <b>Keine Provision pro Gast, alle Funktionen inklusive</b>
+        <span>Preise zzgl. USt.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="abschnitt" id="testen">
+    <div class="huelle">
+      <div class="abschluss">
+        <div>
+          <h2>30 Tage kostenlos testen</h2>
+          <p>Registrieren Sie Ihr Restaurant in der App, die Testphase startet sofort. Ohne Zahlungsdaten, sie endet von selbst.</p>
+        </div>
+        <div class="kontakt">
+          <ol class="schritte">
+            <li>A POSTO aus dem App Store auf Ihr iPhone laden</li>
+            <li>Ihr Restaurant in der App registrieren</li>
+            <li>30 Tage alle Funktionen nutzen, danach monatlich oder jährlich weitermachen</li>
+          </ol>
+          <a class="knopf knopf-hell" href="https://apps.apple.com/de/app/id6813991206">Im App Store laden</a>
+        </div>
+      </div>
+      <div class="persoenlich">
+        <div>
+          <h3>Lieber persönlich?</h3>
+          <p>Gern zeigen wir Ihnen A POSTO in 15 Minuten: bei Ihnen im Restaurant in Frankfurt oder am Telefon.</p>
+        </div>
+        <div class="persoenlich-kontakt">
+          <span class="adresse">team@aposto-app.de</span>
+          <a class="knopf knopf-orange" href="mailto:team@aposto-app.de?subject=A%20POSTO%20vorstellen">E-Mail schreiben</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="huelle fuss">
+  <span class="marke">A POSTO</span>
+  <nav aria-label="Rechtliches">
+    <a href="impressum.html">Impressum</a>
+    <a href="datenschutz.html">Datenschutz</a>
+    <a href="support.html">Support</a>
+  </nav>
+  <span class="jahr">© 2026 A POSTO</span>
+</footer>
+</body>
 </html>
